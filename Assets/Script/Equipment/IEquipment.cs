@@ -4,31 +4,24 @@ using UnityEngine;
 
 namespace Convoy
 {
-    public class Equipment : MonoBehaviour
+    public interface IEquipment
     {
+
         /// <summary>
         /// Initialize equipment
         /// </summary>
-        public virtual void Initialize()
-        {
-
-        }
+        void Initialize();
 
         /// <summary>
         /// Active equipment
         /// </summary>
-        public virtual void Active()
-        {
-
-        }
+        void Active();
 
         /// <summary>
         /// Deactive equipment
         /// </summary>
-        public virtual void Deactive()
-        {
-
-        }
+        void Deactive();
     }
 }
+
 

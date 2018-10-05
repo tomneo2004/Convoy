@@ -4,7 +4,10 @@ using UnityEngine;
 
 namespace Convoy
 {
-    public class Turret : Equipment
+    /// <summary>
+    /// Turret class that control turret components
+    /// </summary>
+    public class Turret : MonoBehaviour, IEquipment
     {
         /// <summary>
         /// All turret components
@@ -12,9 +15,8 @@ namespace Convoy
         protected TurretComponent[] comps;
 
 
-        public override void Initialize()
+        public virtual void Initialize()
         {
-            base.Initialize();
 
             comps = GetComponents<TurretComponent>();
 
@@ -27,18 +29,16 @@ namespace Convoy
                 comps[i].Active();
         }
 
-        public override void Active()
+        public virtual void Active()
         {
-            base.Active();
 
             //Active components
             for (int i = 0; i < comps.Length; i++)
                 comps[i].Active();
         }
 
-        public override void Deactive()
+        public virtual void Deactive()
         {
-            base.Deactive();
 
             //Deactive components
             for (int i = 0; i < comps.Length; i++)
