@@ -105,11 +105,11 @@ namespace Convoy
             return GetAllTargets<T>();
         }
 
-        public void OnUnitDestroy(GameEvent gameEvent)
+        public void OnUnitDisabled(GameEvent gameEvent)
         {
             GameObject o = gameEvent.GetEventPoster<Unit>().gameObject;
             targetMem.Remove(o);
-            Debug.Log(o.name + " remove from memory");
+            Debug.Log(o.name + " remove from target memory");
         }
     }
 }

@@ -88,7 +88,8 @@ namespace Convoy
         protected virtual void OnDisable()
         {
             //Post unit disable event
-            evt_unityDisabled.PostEvent(this);
+            if(evt_unityDisabled != null)
+                evt_unityDisabled.PostEvent(this);
       
         }
     }
