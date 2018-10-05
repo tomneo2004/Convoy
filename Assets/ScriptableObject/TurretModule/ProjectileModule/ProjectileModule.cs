@@ -9,14 +9,16 @@ namespace Convoy
     {
         /// <summary>
         /// How many ammo can shoot before reload
+        /// Magzine size
         /// </summary>
-        [Tooltip("Number of ammo to shoot before reload")]
+        [Tooltip("Number of ammo to shoot before reload \n Magzine size")]
         public int shotPerFire = 1;
 
         /// <summary>
         /// Number of ammo to shoot in each fire
+        /// Example shotgun
         /// </summary>
-        [Tooltip("Number of ammo to shoot in each fire")]
+        [Tooltip("Number of ammo to shoot in each fire \n example shotgun")]
         public int ammoPerShot = 1;
 
         /// <summary>
@@ -42,6 +44,19 @@ namespace Convoy
         /// </summary>
         [Tooltip("Attact angle range")]
         public float attackAngle = 45f;
+
+        /// <summary>
+        /// Projectile max spread angle
+        /// </summary>
+        [Tooltip("Projectile max spread angle")]
+        public float maxSpreadAngle = 10f;
+
+        /// <summary>
+        /// Accuracy 1 most accurate otherwise 0 or value in between
+        /// </summary>
+        [Tooltip("Accuracy 1 most accurate otherwise 0 or value in between")]
+        [Range(0f, 1f)]
+        public float accuracyFactor = 1f;
 
         /// <summary>
         /// Projectile to shoot

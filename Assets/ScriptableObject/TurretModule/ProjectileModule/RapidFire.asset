@@ -14,7 +14,9 @@ MonoBehaviour:
   shotPerFire: 25
   ammoPerShot: 1
   fireInterval: 0.04
-  reloadTime: 0.74
+  reloadTime: 0.47
   turnSpeed: 100
-  attackAngle: 45
+  attackAngle: 15
+  maxSpreadAngle: 10
+  accuracyFactor: 0.73
   projectile: {fileID: 1448216484056910, guid: a74a497c7139b8046bde6b5c3e3ea378, type: 2}
