@@ -251,6 +251,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unityDestroy: {fileID: 11400000, guid: b4852264cf9e2984f986f0b1ff5ae15f, type: 2}
+--- !u!4 &261719042 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4100341039636812, guid: 5a4698e51ea32064ba5ea0e3a29b222c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1226881890}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,6 +340,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114519264147249872, guid: 5a4698e51ea32064ba5ea0e3a29b222c,
+        type: 2}
+      propertyPath: muzzleSockets.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4945017837657706, guid: 5a4698e51ea32064ba5ea0e3a29b222c, type: 2}
       propertyPath: m_LocalPosition.x
       value: -2.87
@@ -367,6 +377,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114519264147249872, guid: 5a4698e51ea32064ba5ea0e3a29b222c,
+        type: 2}
+      propertyPath: muzzleSockets.Array.data[0]
+      value: 
+      objectReference: {fileID: 261719042}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a4698e51ea32064ba5ea0e3a29b222c, type: 2}
   m_IsPrefabAsset: 0

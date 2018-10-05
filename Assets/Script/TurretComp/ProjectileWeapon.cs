@@ -11,16 +11,32 @@ namespace Convoy
         /// </summary>
         public ProjectileModule projectileModule;
 
-        int ammoCount = 1;
+        /// <summary>
+        /// Current ammo left
+        /// </summary>
+        protected int ammoCount = 0;
 
-        bool canAttack = false;
-        Transform target;
-        ITurretSensor sensor;
+        /// <summary>
+        /// Determine whether weapon can attack
+        /// AimTarget is responsible for this value change
+        /// </summary>
+        protected bool canAttack = false;
+
+        /// <summary>
+        /// Target
+        /// AimTarget is responsible for this value change
+        /// </summary>
+        protected Transform target;
+
+        /// <summary>
+        /// Sensor on turret
+        /// </summary>
+        protected ITurretSensor sensor;
 
         /// <summary>
         /// Muzzle socket where projectile shoot from
         /// </summary>
-        public Transform muzzleSocket;
+        public Transform[] muzzleSockets;
 
         public override void Initialize()
         {
@@ -41,7 +57,7 @@ namespace Convoy
             StopAllCoroutines();
         }
 
-        IEnumerator AimTarget()
+        protected virtual IEnumerator AimTarget()
         {
             while(true)
             {
@@ -72,10 +88,13 @@ namespace Convoy
                     canAttack = false;
 
                     //find new target
-                    target = sensor.PickTarget<Transform>();
+                    if (sensor != null)
+                        target = sensor.PickTarget<Transform>();
+                    else
+                        Debug.LogError("Turret require a sensor in order to pick target");
                 }
 
-                if(target != null)
+                if(target != null && sensor != null)
                 {
                     if(!sensor.IsTargetInRange(target.gameObject))
                     {
@@ -89,32 +108,51 @@ namespace Convoy
 
         }
 
-        IEnumerator AttackTarget()
+        protected virtual IEnumerator AttackTarget()
         {
             while(true)
             {
                 if(canAttack && target != null)
                 {
+                    //Fire logic
                     while(ammoCount > 0 && target != null)
                     {
 
-                        Debug.Log("Fire cannon shot at target");
-                        ProjectileMovement p = Instantiate(projectileModule.projectile, muzzleSocket.position, muzzleSocket.rotation).GetComponent<ProjectileMovement>();
-                        p.SetTarget(target.position);
+                        //get first muzzle socket
+                        Transform muzzleSocket = muzzleSockets[0];
+                        if(muzzleSocket != null)
+                        {
+                            Debug.Log("Fire cannon shot at target");
 
-                        ammoCount -= projectileModule.ammoPerShot;
+                            //spawn projectile
+                            ProjectileMovement p = Instantiate(projectileModule.projectile, muzzleSockets[0].position, muzzleSockets[0].rotation).GetComponent<ProjectileMovement>();
 
-                        if (ammoCount <= 0)
+                            Vector2 newTargetPos = ApplyProjectileSpread(target.position);
+
+                            //set projectile target
+                            p.SetTarget(newTargetPos);
+
+                            //consume ammo
+                            ammoCount -= projectileModule.ammoPerShot;
+
+                            if (ammoCount <= 0)
+                                break;
+
+                            yield return new WaitForSeconds(projectileModule.fireInterval);
+                        }
+                        else
+                        {
+                            Debug.LogError("Projectile weapon require a muzzle socket in order to shoot");
                             break;
+                        }
                         
-                        yield return new WaitForSeconds(projectileModule.fireInterval);
                     }
                     
                 }
 
                 if(ammoCount <= 0)
                 {
-                    //reload cannon
+                    //wait for reload cannon
                     yield return StartCoroutine(Reload());
 
                     continue;
@@ -125,12 +163,27 @@ namespace Convoy
             
         }
 
-        IEnumerator Reload()
+        protected virtual IEnumerator Reload()
         {
             Debug.Log("Reloading cannon...");
             yield return new WaitForSeconds(projectileModule.reloadTime);
 
             ammoCount = projectileModule.shotPerFire;
+        }
+
+        protected virtual Vector2 ApplyProjectileSpread(Vector2 position)
+        {
+            Vector2 turretPos = new Vector2(transform.position.x, transform.position.y);
+            Vector2 dir = position - turretPos;
+            float destFromTarget = Vector2.Distance(turretPos, position);
+            
+            float angle = projectileModule.maxSpreadAngle - projectileModule.accuracyFactor * projectileModule.maxSpreadAngle;
+            angle = Random.Range(-angle, angle);
+            Quaternion rot = Quaternion.AngleAxis(angle, Vector3.forward);
+            dir = rot * dir.normalized * destFromTarget;
+
+            return turretPos + dir;
+
         }
     }
 }
