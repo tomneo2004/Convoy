@@ -42,6 +42,9 @@ namespace Convoy
         {
             //get sensor of turret
             sensor = GetComponent<ITurretSensor>();
+
+            //init module
+            projectileModule.Initialize(gameObject);
  
             ammoCount = projectileModule.shotPerFire;
         }
