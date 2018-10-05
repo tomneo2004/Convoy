@@ -6,7 +6,7 @@ namespace Convoy
 {
     public abstract class TurretModule : ScriptableObject
     {
-        public abstract void Initialize(TurretBase turret);
+        public abstract void Initialize(GameObject gameObject);
     }
 }
 

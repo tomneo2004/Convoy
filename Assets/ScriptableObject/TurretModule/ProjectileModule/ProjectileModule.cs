@@ -64,7 +64,7 @@ namespace Convoy
         [Tooltip("Projectile to shoot")]
         public GameObject projectile;
 
-        public override void Initialize(TurretBase turret)
+        public override void Initialize(GameObject gameObject)
         {
         }
     }
