@@ -7,6 +7,10 @@ namespace Convoy
     [RequireComponent(typeof(CircleCollider2D))]
     public class TurretSensor : TurretComponent, ITurretSensor
     {
+        /// <summary>
+        /// Define which team will be detected by sensor
+        /// </summary>
+        [Tooltip("Define which team will be detected by sensor")]
         public List<TeamType> enemyList = new List<TeamType>();
 
         //Sensor Area

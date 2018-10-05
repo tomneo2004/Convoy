@@ -7,7 +7,7 @@ namespace Convoy
     /// <summary>
     /// Turret class that control turret components
     /// </summary>
-    public class Turret : MonoBehaviour, IEquipment
+    public class TurretController : MonoBehaviour, IEquipment
     {
         /// <summary>
         /// All turret components
@@ -17,7 +17,7 @@ namespace Convoy
 
         public virtual void Initialize()
         {
-
+            //get all turret components
             comps = GetComponents<TurretComponent>();
 
             //initialize components

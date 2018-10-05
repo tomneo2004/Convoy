@@ -6,22 +6,26 @@ namespace Convoy
 {
     public class Team : MonoBehaviour, ITeam
     {
+        /// <summary>
+        /// Define which team
+        /// </summary>
+        [Tooltip("Define which team")]
         public TeamType teamType;
 
         public List<Team> FindEnemyMembers(List<Team> unknowTeam)
         {
-            List<Team> enemyTeam = new List<Team>();
+            List<Team> enemyMembers = new List<Team>();
 
             for(int i=0; i<unknowTeam.Count; i++)
             {
                 Team t = unknowTeam[i];
 
                 if (teamType.IsEnemy(t.teamType))
-                    enemyTeam.Add(t);
+                    enemyMembers.Add(t);
 
             }
 
-            return enemyTeam;
+            return enemyMembers;
         }
 
         public TeamType GetTeamType()
