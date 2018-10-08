@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Map
+    uniqueID: 3283544797
+    locked: 0
+  - name: Target
+    uniqueID: 3006310561
+    locked: 0
+  - name: TurretBase
+    uniqueID: 1993687133
+    locked: 0
+  - name: Turret
+    uniqueID: 3650942609
+    locked: 0
