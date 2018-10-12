@@ -23,6 +23,16 @@ namespace Convoy
         public Color drawSeparationColor = Color.red;
 
         [Header("Flock agent properties")]
+
+        /// <summary>
+        /// When enabled agent will maintain last velocity while no nearby agent detected
+        /// 
+        /// When disable agent's velocity will be zero until nearby agent detected
+        /// </summary>
+        [Tooltip("When enabled agent will maintain last velocity while no nearby agent detected\n" +
+            "When disable agent's velocity will be zero until nearby agent detected")]
+        public bool maintainVelocity = false;
+
         /// <summary>
         /// The raidus of scan for nearby agent
         /// who will be consider as member group
@@ -111,6 +121,12 @@ namespace Convoy
 
             if (neighbours.Count == 0)
             {
+                if(maintainVelocity)
+                {
+                    return velocity;
+                }
+                
+                //clear velocity
                 velocity = Vector2.zero;
                 return velocity;
             }
