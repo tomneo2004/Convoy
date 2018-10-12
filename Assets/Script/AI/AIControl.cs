@@ -29,8 +29,12 @@ namespace Convoy
         // Update is called once per frame
         void Update()
         {
-            Vector2 steer = flockAgent.GetSteerVelocity();
+            Vector2 steer = flockAgent.GetSteerVelocity(target.transform.position);
 
+            //move
+            transform.position += new Vector3(steer.x, steer.y, 0f) * Time.deltaTime;
+
+            /*
             if (steer != Vector2.zero)
             {
                 //move
@@ -44,6 +48,7 @@ namespace Convoy
                 tDir = tDir.normalized * flockAgent.speed * Time.deltaTime;
                 transform.position += new Vector3(tDir.x, tDir.y, 0f);
             }
+            */
 
             //rotate
             Vector2 dir = steer;
